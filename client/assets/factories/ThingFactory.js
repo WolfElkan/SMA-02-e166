@@ -1,4 +1,4 @@
-app.factory('ThingFactory',['$http',function($http) {
+app.factory('ThingFactory',['$http','$q',function($http,$q) {
 
 	var factory = {}
 	var content = []
@@ -8,7 +8,10 @@ app.factory('ThingFactory',['$http',function($http) {
 	}
 
 	factory.all = function() {
-		return content
+		$http.get('/things').then(function(returned) {
+			console.log(returned)
+			return returned.data.things
+		})
 	}
 
 	factory.get = function(callback) {
